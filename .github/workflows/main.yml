@@ -1,0 +1,38 @@
+name: Android System Tweaks CI
+
+on:
+  push:
+      branches: [ "main" ]
+        pull_request:
+            branches: [ "main" ]
+              workflow_dispatch:
+
+              jobs:
+                build:
+                    runs-on: ubuntu-latest
+
+                        steps:
+                            - uses: actions/checkout@v4
+
+                                - name: Set up ShellCheck
+                                      run: sudo apt-get install -y shellcheck
+
+                                          - name: Lint Shell Scripts
+                                                run: |
+                                                        find . -name "*.sh" -exec shellcheck {} +
+
+                                                            - name: Validate Project Structure
+                                                                  run: |
+                                                                          if [ ! -d "scripts" ]; then
+                                                                                    echo "Error: scripts directory not found"
+                                                                                              exit 1
+                                                                                                      fi
+                                                                                                              echo "Project structure is valid."
+                                                                                                              
+                                                                                                                  - name: Simulate Build Process
+                                                                                                                        run: |
+                                                                                                                                echo "Starting build process..."
+                                                                                                                                        mkdir -p build
+                                                                                                                                                cp scripts/*.sh build/
+                                                                                                                                                        echo "Build completed successfully."
+                                                                                                                                                        
