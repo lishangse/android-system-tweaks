@@ -1,0 +1,15 @@
+#!/sbin/sh
+# Magisk Module Installer
+
+ui_print "- Installing Simple System Tweaks module..."
+
+# Extract module files
+unzip -o "$ZIPFILE" 'system/*' -d "$MODPATH" >&2
+unzip -o "$ZIPFILE" 'customize.sh' -d "$MODPATH" >&2
+unzip -o "$ZIPFILE" 'service.sh' -d "$MODPATH" >&2
+unzip -o "$ZIPFILE" 'module.prop' -d "$MODPATH" >&2
+
+# Set permissions
+set_perm_recursive "$MODPATH" 0 0 0755 0644
+
+ui_print "- Module installed successfully!"
